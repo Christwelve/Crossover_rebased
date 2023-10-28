@@ -7,7 +7,6 @@ const RestaurantSchema = new mongoose.Schema ({
         minlength: 1,
         maxlength: 100,
         trim: true
-
     },
     address: {
         type: String,
@@ -15,17 +14,22 @@ const RestaurantSchema = new mongoose.Schema ({
         minlength: 1,
         maxlength: 100
     },
-    city: {
-        type: String,
-        required: true,
-        minlength: 1,
-        maxlength: 100
+    city_id: {
+        type: mongoose.Schema.Types.ObjectId
     },
     img:{
         type: String,
         required: true,
         minlength:1,
-    }
+    },
+    location: {
+        longitude: {
+            type: Number
+        },
+        latitude: {
+            type: Number
+        }
+    } 
 });
 
 

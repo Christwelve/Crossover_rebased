@@ -1,5 +1,6 @@
 import express from 'express';
 import Restaurant from "../models/Restaurant.js";
+import City from '../models/Cities.js';
 const restaurantsRouter = express.Router();
 
 restaurantsRouter.post("/", async (req, res) => {
@@ -13,6 +14,16 @@ try {
     }
   });
 
+  restaurantsRouter.post("/cities", async (req, res) =>{
+    const {name} = req.body;
+    try {   
+      const response = await City.create({name});
+      res.status(201).json(response);
+    } catch(err){
+        // const errors = handleErrors(err);        
+        res.status(500).json(err)
+    }
+  })
 
 restaurantsRouter.get("/", async (req, res) => {
     try {
@@ -34,10 +45,20 @@ restaurantsRouter.get("/:id", async(req, res)=> {
     }
 });
 
-restaurantsRouter.get("/city/:city", async(req, res)=> {
+// restaurantsRouter.get("/tags/:tag", async(req, res)=> {
+//   try{
+//     const {tag} = req.params
+//     const response = await Restaurant.find({tags: tag});
+//     res.json(response)
+//   } catch(err){
+//     res.status(500).json(err);
+//   }
+// })
+
+restaurantsRouter.get("/cities/:id", async(req, res)=> {
     try {
         const {city} = req.params
-      const response = await Restaurant.find({city: city});
+      const response = await Restaurant.find({city_id: city});
       res.json(response)
     } catch(err){
         res.status(500).json(err);
